@@ -1,0 +1,19 @@
+---
+- name: Get package facts
+  ansible.builtin.package_facts:
+- name: Install mattermost-desktop
+  block:
+  - name: Get latest mattermost-desktop version
+    ansible.builtin.uri:
+      url: "{{ mattermost_github_latest_release_url }}"
+    register: mattermost_desktop_release
+  - name: Set tag variables
+    ansible.builtin.set_fact:
+      mattermost_dl_url: https://releases.mattermost.com/desktop/{{ mattermost_desktop_release.json.tag_name | replace('v','') }}/mattermost-desktop-{{ mattermost_desktop_release.json.tag_name | replace('v','') }}-linux-amd64.deb
+  - name: output mattermost_dl_url
+    ansible.builtin.debug:
+      var: mattermost_dl_url
+  - name: Install latest mattermost-deskop release
+    ansible.builtin.apt:
+      deb: "{{ mattermost_dl_url }}"
+  when: "'mattermost-desktop' not in ansible_facts.packages"

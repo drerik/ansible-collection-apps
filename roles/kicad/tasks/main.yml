@@ -1,0 +1,10 @@
+---
+- name: Add kicad repository
+  ansible.builtin.apt_repository:
+    repo: ppa:kicad/kicad-6.0-releases
+    state: present
+- name: Install kicad
+  ansible.builtin.apt:
+    name: kicad
+    install_recommends: yes
+    state: present

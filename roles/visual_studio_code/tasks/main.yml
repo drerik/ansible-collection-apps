@@ -1,0 +1,7 @@
+---
+- name: Get package facts
+  ansible.builtin.package_facts:
+- name: Install latest visual studio code
+  ansible.builtin.apt:
+    deb: "{{ code_url }}"
+  when: "'code' not in ansible_facts.packages"

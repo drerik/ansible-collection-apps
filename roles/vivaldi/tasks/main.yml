@@ -1,0 +1,14 @@
+---
+- name: Add vivaldis gpg key
+  ansible.builtin.apt_key:
+    url: https://repo.vivaldi.com/archive/linux_signing_key.pub
+    state: present
+- name: Add repository
+  ansible.builtin.apt_repository:
+    repo: deb https://repo.vivaldi.com/archive/deb/ stable main
+    state: present
+    filename: vivaldi
+- name: Install stable binary
+  ansible.builtin.apt:
+    name: vivaldi-stable
+    state: present

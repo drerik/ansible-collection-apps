@@ -1,0 +1,25 @@
+---
+- name: get stats on /usr/local/bin/marp
+  ansible.builtin.stat:
+    path: "{{ marp_cli_cmd }}"
+  register: marp_cli_stat
+- name: Install marp_cli
+  block:
+  - name: Get latest marp-cli release
+    ansible.builtin.uri:
+      url: "{{ marp_cli_github_latest_release_url }}"
+    register: marp_cli_release
+  # - name: output marp_cli_release
+  #   ansible.builtin.debug:
+  #     var: marp_cli_release
+  # - name: Download latest marp-cli release
+  #   ansible.builtin.get_url:
+  #     url: https://github.com/marp-team/marp-cli/releases/download/{{ marp_cli_release.json.tag_name }}/marp-cli-{{ marp_cli_release.json.tag_name }}-linux.tar.gz
+  #     dest: /tmp/marp-cli.tar.gz
+  - name: Download and extract marp
+    ansible.builtin.unarchive:
+      src: https://github.com/marp-team/marp-cli/releases/download/{{ marp_cli_release.json.tag_name }}/marp-cli-{{ marp_cli_release.json.tag_name }}-linux.tar.gz
+      dest: /usr/local/bin
+      mode: 0755
+      remote_src: yes
+  when: "not marp_cli_stat.stat.exists"

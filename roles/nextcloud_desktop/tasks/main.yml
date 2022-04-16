@@ -1,0 +1,18 @@
+---
+- name: get stats on /usr/local/bin/nextcloud-desktop.appimage
+  ansible.builtin.stat:
+    path: /usr/local/bin/nextcloud-desktop.AppImage
+  register: appimage_stat
+- name: Install nextcloud-desktop appimage
+  block:
+  - name: Get latest nextcloud-desktop release
+    ansible.builtin.uri:
+      url: https://api.github.com/repos/nextcloud/desktop/releases/latest
+    register: appimage_release
+  - name: Download latest Nextcloud-desktop release
+    ansible.builtin.get_url:
+      url: https://github.com/nextcloud/desktop/releases/download/{{ appimage_release.json.tag_name }}/Nextcloud-{{ appimage_release.json.tag_name | replace('v','') }}-x86_64.AppImage
+      dest: /usr/local/bin/nextcloud-desktop.AppImage
+      mode: 0755
+  when: "not appimage_stat.stat.exists"
+
