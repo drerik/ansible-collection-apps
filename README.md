@@ -35,3 +35,7 @@ Installs Microsoft Visual Studio Code
 ### drerik.apps.vivaldi
 
 Installs the vivaldi browser
+
+### drerik.apps.gse_sound_output_device_chooser
+
+Install the Gnome shell extension "Sound Input & Output Device Chooser"
