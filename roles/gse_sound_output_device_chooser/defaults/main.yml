@@ -1,0 +1,5 @@
+---
+repo_name: gse-sound-output-device-chooser
+repo_url: https://github.com/kgshank/gse-sound-output-device-chooser.git
+repo_store: "{{ ansible_env.HOME }}/.local/git_store"
+extension_dir: "{{ ansible_env.HOME }}/.local/share/gnome-shell/extensions/"

@@ -1,0 +1,30 @@
+---
+# tasks file for gse_sound_output_device_chooser
+- name: create local git repo store
+  ansible.builtin.file:
+    path: "{{ repo_store }}"
+    state: directory
+    recurse: yes
+
+- name: create gnome extension dir
+  ansible.builtin.file:
+    path: "{{ extension_dir }}"
+    state: directory
+    recurse: yes
+
+- name: Clone gir repo
+  ansible.builtin.git:
+    repo: "{{ repo_url }}"
+    dest: "{{ repo_store }}/{{ repo_name }}"
+
+- name: Symlink extension from git repo
+  ansible.builtin.copy:
+    src: "{{ repo_store }}/{{ repo_name }}/sound-output-device-chooser@kgshank.net"
+    dest: "{{ extension_dir }}"
+    remote_src: yes
+  register: copy_task
+
+- name: Enable gnome extension
+  ansible.builtin.shell: gnome-extensions enable sound-output-device-chooser@kgshank.net
+    when: copy_task.changed
+  

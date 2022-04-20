@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Erik Kaareng-Sunde <erik@eriksunde.com>
+  description: Installs the gnome shell extension "Sound Input & Output Device Chooser"
+  license: Apache-2.0
+  min_ansible_version: 2.9
+  galaxy_tags:
+  - audio
+  - gnome-extension
+  - desktop
+  dependencies: []
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
