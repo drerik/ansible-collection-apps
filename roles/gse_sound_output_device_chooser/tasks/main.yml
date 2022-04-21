@@ -26,5 +26,5 @@
 
 - name: Enable gnome extension
   ansible.builtin.shell: gnome-extensions enable sound-output-device-chooser@kgshank.net
-    when: copy_task.changed
+  when: copy_task.changed
   
