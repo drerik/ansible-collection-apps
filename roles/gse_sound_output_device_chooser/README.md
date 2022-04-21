@@ -23,8 +23,10 @@ None
 Example Playbook
 ----------------
 
+Note: run as local user not root. This installs the extension to the `ansible_user` homedir.
+
+
     - name: Do user specific updates
-      tags: userspesific
       hosts: localhost
       roles:
         - drerik.apps.gse_sound_output_device_chooser
