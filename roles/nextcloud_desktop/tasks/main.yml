@@ -1,4 +1,8 @@
 ---
+- name: Make shure fuse is present
+  ansible.builtin.apt:
+    name: fuse
+    state: present
 - name: get stats on /usr/local/bin/nextcloud-desktop.appimage
   ansible.builtin.stat:
     path: /usr/local/bin/nextcloud-desktop.AppImage
